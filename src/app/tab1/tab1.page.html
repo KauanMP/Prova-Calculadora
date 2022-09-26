@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Calculadora
+    </ion-title>
+    <ion-button (click)="clear()" slot="end" fill="clear">Clear</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-item>
+      <ion-label position="floating">Valor 1:</ion-label>
+      <ion-input [(ngModel)]="valor1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Valor 2:</ion-label>
+      <ion-input [(ngModel)]="valor2"></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="success" (click)="fzrSoma()">+</ion-button>
+          <ion-button color="success" (click)="fzrSubtracao()">-</ion-button>
+          <ion-button color="success" (click)="fzrMultiplicacao()">*</ion-button>
+          <ion-button color="success" (click)="fzrDivisao()">/</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item>
+      <ion-button color="warning" (click)="descoMaior()">Maior</ion-button>
+      <ion-button color="warning" (click)="descoMenor()">Menor</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Resultado:</ion-label>
+      <ion-input color="success" [(ngModel)]="resultado"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Operação:</ion-label>
+      <ion-input [(ngModel)]="operacao"></ion-input>
+    </ion-item>
+</ion-content>
