@@ -12,33 +12,36 @@ public valor1: number;
 public valor2: number;
 
 public resultado: number;
+public operacao = '';
 
 constructor(private alertController: AlertController) {}
 
   fzrSoma() {
+    // this.resultado = this.valor1 +
+    this.operacao = 'soma';
     return this.resultado = Number(this.valor1) + Number(this.valor2);
-
   }
 
   fzrSubtracao(){
+    this.operacao = 'subtração';
     return this.resultado = Number(this.valor1) - Number(this.valor2);
-
   }
 
   fzrMultiplicacao(){
+    this.operacao = 'Multiplicação';
     return this.resultado = Number(this.valor1) * Number(this.valor2);
-
   }
 
   fzrDivisao(){
+    this.operacao = 'Divisão';
     return this.resultado = Number(this.valor1) / Number(this.valor2);
-
   }
 
   async clear(){
     this.valor1 = null;
     this.valor2 = null;
     this.resultado = null;
+    this.operacao = '';
   }
 
   async descoMaior(){
