@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { evaluate } from 'mathjs'
-
+import { Validators } from '@angular/forms';
+import { evaluate } from 'mathjs';
 
 @Component({
   selector: 'app-tab2',
@@ -8,25 +8,16 @@ import { evaluate } from 'mathjs'
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
   operacao = '';
   resultado = '';
   numero = false;
   caracter = true;
-  caracteres = ['.', '/', '*', '+', '-'];
+  caracteres = ['.', '/', '*', '-', '+'];
 
   constructor() {}
 
-  ngOnInit(): void {}
-
-  calcularOperacao() {
-    try {
-    this.resultado = evaluate(this.operacao);
-  } catch (err) {
-    this.resultado = 'inválido!;'
-  }  
-}
-
-  adicionarValor(valor: string) {
+  adicionarValor(valor: string){
     this.caracter = this.caracteres.includes(valor);
 
     if (!this.caracter) {
@@ -37,33 +28,42 @@ export class Tab2Page {
       this.numero = false;
     }
   }
-
-
   limparOperacao(){
     this.operacao = '';
-
+    this.numero = false;
   }
+  interValor() {
+    //
+  }
+
+  calcularOperacao() {
+    try {
+    this.resultado = evaluate(this.operacao);
+    } catch (err) {
+      this.resultado = 'Inválido';
+    }
+  }
+
 
   limparMemoria(){
     this.operacao = '';
     this.resultado = '';
-
-  }
-
-  apagarCaracter(){{
-    this.operacao = this.operacao.substring(0, this.operacao.length -1);
-
-  }
-
-  const ultimo = this.operacao.substring(this.operacao.length, 1);
-  this.caracter = this.caracteres.includes(ultimo);
-
-  console.log(ultimo);
-
-  if (!this.caracter){
-    this.numero = true;
-  } else {
     this.numero = false;
   }
-}
+  limparCaracter(){
+    if (this.operacao.length > 0){
+    this.operacao = this.operacao.substring(0, this.operacao.length -1);
+    }
+
+    const ultimo = this.operacao.substring(this.operacao.length,1);
+    this.caracter = this.caracteres.includes(ultimo);
+
+    console.log(ultimo);
+
+    if (!this.caracter) {
+      this.numero = true;
+    } else {
+      this.numero = false;
+    }
+  }
 }
