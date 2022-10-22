@@ -1,6 +1,11 @@
+import { IMemoria } from './../models/IMemoria.model';
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { evaluate } from 'mathjs';
+import { AlertController } from '@ionic/angular';
+
+
+
 
 @Component({
   selector: 'app-tab2',
@@ -15,7 +20,41 @@ export class Tab2Page {
   caracter = true;
   caracteres = ['.', '/', '*', '-', '+'];
 
-  constructor() {}
+  memoria: IMemoria[] = [];
+
+  constructor(private alertController: AlertController) {}
+
+  async presentAlert(titulo: string, mensagem: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensagem,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async adicionarMemoria(){
+    if (this.operacao !== '' && this.resultado !== ''){
+      const memoria: IMemoria ={
+        operacao: this.operacao,
+        resultado: Number(this.resultado),
+      };
+      this.memoria.push(memoria);
+    }else if(this.operacao !== '' && this.resultado === ''){
+      this.calcularOperacao();
+
+      const memoria: IMemoria ={
+        operacao: this.operacao,
+        resultado: Number(this.resultado),
+      };
+      this.memoria.push(memoria);
+    }else{
+      this.presentAlert('Erro!', 'Não foi possivel salvar');
+    }
+
+    console.log(this.memoria);
+  }
 
   adicionarValor(valor: string){
     this.caracter = this.caracteres.includes(valor);
