@@ -1,8 +1,10 @@
 import { IMemoria } from './../models/IMemoria.model';
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { evaluate } from 'mathjs';
+import { evaluate, number } from 'mathjs';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { MemoriaModalPage } from '../utils/memoria-modal/memoria-modal.page';
 
 
 
@@ -22,7 +24,7 @@ export class Tab2Page {
 
   memoria: IMemoria[] = [];
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private modalCtrl: ModalController) {}
 
   async presentAlert(titulo: string, mensagem: string) {
     const alert = await this.alertController.create({
@@ -32,6 +34,52 @@ export class Tab2Page {
     });
 
     await alert.present();
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: MemoriaModalPage,
+      componentProps: {
+        memoria: this.memoria,
+      },
+    });
+    modal.present();
+  }
+
+  clearMemoria() {
+    this.memoria = [];
+  }
+
+  resultadoMemoria() {
+    const memoria = this.memoria[this.memoria.length -1];
+    this.operacao = memoria.operacao;
+    this.resultado = memoria.resultado.toString();
+  }
+
+  adicaoMemoria() {
+    if (this.operacao !== '') {
+      this.calcularOperacao();
+    const memoria = this.memoria[this.memoria.length -1];
+    const novaMemoria: IMemoria = {
+      operacao: `${this.resultado} + ${memoria.resultado}`,
+      resultado: Number(this.resultado) + memoria.resultado,
+    }
+    this.memoria.push(novaMemoria);
+    console.log('adicionado: ', this.memoria);
+    }
+  }
+
+  subtraiMemoria() {
+    if (this.operacao !== '') {
+      this.calcularOperacao();
+    const memoria = this.memoria[this.memoria.length -1];
+    const novaMemoria: IMemoria = {
+      operacao: `${this.resultado} - ${memoria.resultado}`,
+      resultado: Number(this.resultado) - memoria.resultado,
+    }
+    this.memoria.push(novaMemoria);
+    console.log('adicionado: ', this.memoria);
+    }
   }
 
   async adicionarMemoria(){

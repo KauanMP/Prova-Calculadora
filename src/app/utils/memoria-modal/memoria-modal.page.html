@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>memoria-modal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let mem of memoria" lines="full">
+    <ion-label>{{mem.operacao}} = {{mem.resultado}}</ion-label>
+  </ion-item>
+
+  <ion-buttons click="fechar()">
+    <ion-button>Sair</ion-button>
+  </ion-buttons>
+</ion-content>
